@@ -7,20 +7,24 @@ package worlds
 	import game.directors.AlienDirector;
 	import game.directors.BackAndForthDirector;
 	import game.directors.CyclicDirector;
+	import game.directors.RolloverDirector;
 	import game.GameData;
 	import game.Hud;
+	import game.PictureGrabber;
 	import game.Player;
 	import game.spawners.AlienSpawner;
 	import game.spawners.ColumnSpawner;
 	import game.spawners.GridSpawner;
 	import game.spawners.SingleSpawner;
 	import net.flashpunk.Entity;
+	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
 	import values.Game;
 	import values.Teams;
 	import util.EntityQueries;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Input;
+	import net.flashpunk.FP;
 	
 	/**
 	 * ...
@@ -49,10 +53,10 @@ package worlds
 			_hud = new Hud(_data);
 			add(_hud);
 			
-			_player = new Player(_data, Game.WIDTH / 2, Game.PLAYER_START_HEIGHT);
+			_player = new Player(_data, Game.WIDTH / 2, Game.PLAYER_START_HEIGHT, new PictureGrabber().grab());
 			add(_player);
 			
-			_director = new BackAndForthDirector(this);
+			_director = new RolloverDirector(this, new BackAndForthDirector(this));
 			_spawner = new GridSpawner(7, 4);
 			_colorer = new AlternatingColorer;
 		}
@@ -72,6 +76,12 @@ package worlds
 		override public function update():void 
 		{
 			super.update();
+			
+			if (Input.check(Key.BACKSPACE)) {
+				
+				FP.world = new TitleScreen;
+				return;
+			}
 			
 			_director.update();
 			

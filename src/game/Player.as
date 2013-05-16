@@ -23,12 +23,12 @@ package game
 		private var _isEnabled:Boolean = false;
 		private var _data:GameData;
 		
-		public function Player(data:GameData, x:Number, y:Number)
+		public function Player(data:GameData, x:Number, y:Number, source:*)
 		{
 			super(x, y);
 			_data = data;
 			
-			var img:Image = ImageMaker.centeredAndConstrained(Images.PLAYER, Game.ENTITY_WIDTH, Game.ENTITY_WIDTH);
+			var img:Image = ImageMaker.centeredAndConstrained(source, Game.ENTITY_WIDTH + 32, Game.ENTITY_WIDTH + 32);
 			img.color = Colors.PLAYER;
 			graphic = img;
 			setHitbox(Game.ENTITY_WIDTH, Game.ENTITY_WIDTH, Game.ENTITY_WIDTH / 2, Game.ENTITY_WIDTH / 2);

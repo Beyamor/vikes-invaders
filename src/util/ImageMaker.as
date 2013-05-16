@@ -7,7 +7,7 @@ package util
 	 */
 	public class ImageMaker 
 	{
-		public static function centeredAndConstrained(source:Class, width:Number, height:Number):Image {
+		public static function centeredAndConstrained(source:*, width:Number, height:Number):Image {
 			
 			var image:Image = new Image(source);
 			
